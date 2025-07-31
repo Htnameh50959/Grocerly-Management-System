@@ -1,0 +1,31 @@
+<html>
+<head>
+    <title>Error</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style> 
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 ,#p1{
+            color: #d9534f;
+        }
+    </style>
+</head>
+<body>
+    <h1>Error</h1>
+    <p id="p1">{{ message }}</p>
+    
+    <script>
+        // Redirect to the admin page after 3 seconds
+        setTimeout(() => {
+            window.location.href = "/";
+        }, 3000);
+    </script>
+</body>
+</html>

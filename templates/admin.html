@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin Page</title>
+    <link rel="stylesheet" href="static/stylesanjavascript/css/admin.css" />
+</head>
+
+<body>
+    <nav id="navbar">
+        <div class="logo">
+            <img src="static/images/elitegrocers_logo.jpg" />
+            <h2 class="logo-name">Elite Grocers</h2>
+        </div>
+        <input type="checkbox" id="menu-toggle" />
+        <label class="menu" for="menu-toggle">☰</label>
+        <div class="nav-links">
+            <ul>
+                <li><a href="/admin">Home</a></li>
+                <li id="LoginData" class="dropdown">
+                    <a id="Logindata">Login Data</a>
+                    <ul class="dropdown-content1">
+                        <li>
+                            <p id="Users">Customer</p>
+                        </li>
+                        <li>
+                            <p id="Distributor">Distributor</p>
+                        </li>
+                        <li>
+                            <p id="Admin">Admins</p>
+                        </li>
+                    </ul>
+                </li>
+                <li id="cart1" class="dropdown">
+                    <div id="cart">
+                        <a id="cart">
+                            Cart :</a>
+                        <p id="totalorder">0</p>
+                    </div>
+                    <ul class="dropdown-content">
+                        <li>
+                            <p id="allorders">All Orders</p>
+                        </li>
+                        <li>
+                            <p id="todayorders">Today's Orders</p>
+                        </li>
+                    </ul>
+                </li>
+                <li><a id="add-products" href="/add_edit_product">Add/Edit Products</a></li>
+                <li><a id="complaints">Complaints</a></li>
+            </ul>
+            <div class="profile" id="profile">
+                <div class="profile-icon" id="profileIcon">
+                    <!-- Profile icon SVG -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 
+                        1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                    </svg>
+                </div>
+                <div class="links-in-profileicon" id="links-in-profileicon">
+                    <div class="profile-data">
+                        <div class="profile-icon-in-links">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 
+                              0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                            </svg>
+                        </div>
+                        <h4 id="show-username">
+                            Username:
+                            <span id="usernameforplaceorder">
+                                {{session["username"]}}
+                            </span>
+                        </h4>
+                        <h4 id="show-email">Email: {{session["email"]}}
+                        </h4>
+                        <hr id="profile-hr" />
+                        <div id="loginorlogout">
+                            <a id="logout-link">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Toast message -->
+    <div id="toast" class="toast">
+        <span id="toast-message"></span>
+    </div>
+
+    <div id="container">
+        <h1 id="h1"></h1>
+        <form id="formsearch">
+            <label for="search">Search :</label>
+            <input type="text" id="search" placeholder="Search..." />
+        </form>
+
+        <div id="order-list" class="order-list"></div>
+
+        <div id="dashboardstatistics">
+            <h1>Dashboard Statistics</h1>
+            <div id="dashboardstatistics1">
+                <div id="dashboard-stats1">
+                    <p>
+                        <strong>Total Users: <span class="dashboard-stats1-1" id="total-users"></span></strong>
+                    </p>
+                    <p>
+                        <strong>Customers: <span class="dashboard-stats1-1" id="customer-count"></span></strong>
+                    </p>
+                    <p>
+                        <strong>Distributors: <span class="dashboard-stats1-1" id="distributor-count"></span></strong>
+                    </p>
+                    <p>
+                        <strong>Total Orders: <span class="dashboard-stats1-1" id="total-orders"></span></strong>
+                    </p>
+                    <p>
+                        <strong>Today's Orders: <span class="dashboard-stats1-1" id="today-orders"></span></strong>
+                    </p>
+                    <p>
+                        <strong>Total Revenue: ₹<span class="dashboard-stats1-1" id="total-revenue"></span></strong>
+                    </p>
+                    <p>
+                        <strong>Total Complaints: <span class="dashboard-stats1-1"
+                                id="total-complaints"></span></strong>
+                    </p>
+                    <div id="order-status-counts"></div>
+                </div>
+
+                <div id="addusers">
+                    <button id="adduserbutton">Add User</button>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+    <div id="adminpin">
+        <form id="adminpinform">
+            <h1>Admins</h1>
+            <h6 id="admindis">To access admins you have to verify</h6>
+            <label for="pin" id="pinlable">Pin :</label>
+            <input id="pin" type="password" />
+            <div class="submit">
+                <input type="submit" value="Enter" />
+                <input type="button" id="close-adminpin" value="Close" />
+            </div>
+        </form>
+    </div>
+    <div id="adduser">
+        <form id="adduserform">
+            <h1 class="h1">Add User</h1>
+            <hr />
+            <div id="role">
+                <label for="addrole" class="addlable">Add As:</label>
+                <select id="addrole" name="loginRole">
+                    <option></option>
+                    <option value="customer">Customer</option>
+                    <option value="distributor">Distributor</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+            <div class="form-group" id="customer-group" style="display: none;">
+                <label for="customerfullname" class="addlable">Customer Full Name</label>
+                <input type="text" id="customerfullname" name="customerfullname" />
+                <label for="customerusername" class="addlable">Customer Username</label>
+                <input type="text" id="customerusername" name="customerusername" />
+            </div>
+            <div class="form-group" id="pincode-group" style="display: none;">
+                <label for="pincode" class="addlable">Pincode</label>
+                <input type="text" id="pincode" name="pincode" />
+            </div>
+            <div class="form-group" id="distributor-group" style="display: none;">
+                <label for="distributorname" class="addlable">Distributor Name</label>
+                <input type="text" id="distributorname" name="distributorname" />
+                <label for="distributorusername" class="addlable">Distributor UserName</label>
+                <input type="text" id="distributorusername" name="distributorusername" />
+            </div>
+            <div class="form-group" id="admin-pin" style="display: none;">
+                <label for="adminpininput" class="addlable">Admin Pin</label>
+                <input type="password" id="adminpininput" name="adminpin" />
+                <button id="verify-admin-pin" class="verify-button">Verify</button>
+                <div class="loading-icon" id="loading-icon" style="display: none;"></div>
+            </div>
+
+            <div class="form-group" id="admin-group" style="display: none;">
+                <label for="admin" class="addlable">Admin UserName</label>
+                <input type="text" id="admin" name="adminname" />
+            </div>
+            <div class="form-group" id="email-group" style="display: none;">
+                <label for="email" class="addlable">Email</label>
+                <input type="text" id="email" name="email" />
+            </div>
+            <div class="form-group" id="password-group" style="display: none;">
+                <label for="passin" class="loginlable">Password</label>
+                <input type="password" id="password" name="passin" />
+            </div>
+            <div class="submit">
+                <input type="submit" name="add_user" id="submit" value="Add" onclick="addUser(event)" />
+                <div class="loading-icon" id="loading-icon1" style="display: none;"></div>
+                <input type="button" id="close-adduser" value="Close" />
+            </div>
+        </form>
+    </div>
+    <script src="static/stylesanjavascript/js/admin.js"></script>
+</body>
+
+</html>
